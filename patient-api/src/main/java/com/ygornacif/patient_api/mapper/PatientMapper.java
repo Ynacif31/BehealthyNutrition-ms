@@ -5,12 +5,10 @@ import com.ygornacif.patient_api.entities.Patient;
 
 public class PatientMapper {
 
-    public static PatientDto mapToPatientDto(Patient patient) {
+    public static PatientDto mapToPatientDto(Patient patient, PatientDto patientDto) {
         if (patient == null) {
             return null;
         }
-
-        PatientDto patientDto = new PatientDto();
         patientDto.setName(patient.getName());
         patientDto.setEmail(patient.getEmail());
         patientDto.setMobileNumber(patient.getMobileNumber());
@@ -22,12 +20,11 @@ public class PatientMapper {
         return patientDto;
     }
 
-    public static Patient mapToPatient(PatientDto patientDto) {
+    public static Patient mapToPatient(PatientDto patientDto, Patient patient) {
         if (patientDto == null) {
             return null;
         }
 
-        Patient patient = new Patient();
         patient.setName(patientDto.getName());
         patient.setEmail(patientDto.getEmail());
         patient.setMobileNumber(patientDto.getMobileNumber());
