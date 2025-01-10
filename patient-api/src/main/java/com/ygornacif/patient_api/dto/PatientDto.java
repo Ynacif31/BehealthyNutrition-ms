@@ -17,7 +17,7 @@ public class PatientDto {
     @Email(message = "Email address should be a valid value")
     private String email;
 
-    @Pattern(regexp = "^[0-9]{10}$", message = "Mobile number must be 10 digits")
+    @Pattern(regexp = "^[0-9]{11}$", message = "Mobile number must be 11 digits")
     private String mobileNumber;
 
     @NotNull(message = "Birth date cannot be null")
