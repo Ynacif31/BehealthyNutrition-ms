@@ -9,3 +9,25 @@ CREATE TABLE IF NOT EXISTS `patient` (
     `imc` DOUBLE NOT NULL,
     `gender` VARCHAR(10) NOT NULL
     );
+CREATE TABLE IF NOT EXISTS `consultation_history` (
+                                                     `id` INT AUTO_INCREMENT PRIMARY KEY,
+                                                      `patient_id` INT NOT NULL,
+                                                      `consultation_date` DATETIME NOT NULL,
+                                                      `notes` TEXT,
+                                                      FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
+    );
+
+CREATE TABLE IF NOT EXISTS `progress` (
+                                          `id` INT AUTO_INCREMENT PRIMARY KEY,
+                                          `patient_id` INT NOT NULL,
+                                          `progress_date` DATETIME NOT NULL,
+                                          `details` TEXT,
+                                          FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
+    );
+
+CREATE TABLE IF NOT EXISTS `diet_plan` (
+                                           `id` INT AUTO_INCREMENT PRIMARY KEY,
+                                           `patient_id` INT NOT NULL,
+                                           `plan_details` TEXT,
+                                           FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
+    );

@@ -6,6 +6,7 @@ import lombok.Data;
 @Data
 public class ConsultationHistoryDto {
 
-    private Patient patient;
+    private Long id;
+    private Long patientId;
     private String notes;
 }

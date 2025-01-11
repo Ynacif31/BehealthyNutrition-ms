@@ -8,5 +8,4 @@ import java.util.List;
 
 @Repository
 public interface ProgressRepository extends JpaRepository<Progress, Long> {
-    List<Progress> findByPatientId(Long patientId);
 }

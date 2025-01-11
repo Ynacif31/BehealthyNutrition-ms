@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface DietPlanRepository extends JpaRepository<DietPlan, Long> {
-    List<DietPlan> findByPatientId(Long patientId);
+
 }

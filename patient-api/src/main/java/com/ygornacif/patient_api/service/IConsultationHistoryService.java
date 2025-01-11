@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface IConsultationHistoryService {
 
-    List<ConsultationHistoryDto> getConsultationHistoryByPatientId(Long patientId);
+    List<ConsultationHistoryDto> fetchConsultationHistoryByPatientId(Long patientId);
 
-    void addConsultationHistory(ConsultationHistoryDto consultationHistoryDto);
+    void createConsultationHistory(ConsultationHistoryDto consultationHistoryDto);
 }

@@ -7,6 +7,6 @@ import lombok.Data;
 public class ProgressDto {
 
     private Patient patient;
-    private String progressDetails;
+    private String details;
 
 }
