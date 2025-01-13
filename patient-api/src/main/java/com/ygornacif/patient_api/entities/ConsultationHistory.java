@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 @Entity
 @Getter
@@ -23,6 +25,8 @@ public class ConsultationHistory {
     @JoinColumn(name = "patient_id", nullable = false)
     Patient patient;
 
-    private LocalDateTime consultationDate;
+    private Date consultationDate;
     private String notes;
+
+    private LocalDate nextConsultationDate;
 }

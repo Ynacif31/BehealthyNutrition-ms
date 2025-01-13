@@ -1,5 +1,7 @@
 package com.ygornacif.patient_api.controller;
 
+import com.ygornacif.patient_api.constants.ApiConstants;
+import com.ygornacif.patient_api.constants.ConsultationHistoryConstants;
 import com.ygornacif.patient_api.constants.PatientConstants;
 import com.ygornacif.patient_api.dto.ConsultationHistoryDto;
 import com.ygornacif.patient_api.dto.ResponseDto;
@@ -25,7 +27,7 @@ public class ConsultationHistoryController {
     public ResponseEntity<ResponseDto> createHistory(@Validated @RequestBody ConsultationHistoryDto consultationHistoryDto) {
         consultationHistoryService.createConsultationHistory(consultationHistoryDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseDto(PatientConstants.STATUS_201, PatientConstants.MESSAGE_201));
+                .body(new ResponseDto(ApiConstants.STATUS_201, ConsultationHistoryConstants.MESSAGE_201));
     }
 
     @GetMapping("/fetch-history/{patientId}")

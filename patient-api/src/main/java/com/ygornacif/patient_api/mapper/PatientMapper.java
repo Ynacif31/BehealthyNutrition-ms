@@ -1,7 +1,11 @@
 package com.ygornacif.patient_api.mapper;
 
 import com.ygornacif.patient_api.dto.PatientDto;
+import com.ygornacif.patient_api.entities.ConsultationHistory;
 import com.ygornacif.patient_api.entities.Patient;
+
+import java.util.ArrayList;
+import java.util.stream.Collectors;
 
 public class PatientMapper {
 
@@ -17,6 +21,11 @@ public class PatientMapper {
         patientDto.setHeight(patient.getHeight());
         patientDto.setWeight(patient.getWeight());
         patientDto.setImc(patient.getImc());
+        patientDto.setConsultationHistory(
+                patient.getConsultationHistory().stream()
+                        .map(ConsultationHistoryMapper::mapToConsultationHistoryDto)
+                        .collect(Collectors.toList())
+        );
         return patientDto;
     }
 
@@ -24,7 +33,6 @@ public class PatientMapper {
         if (patientDto == null) {
             return null;
         }
-
         patient.setName(patientDto.getName());
         patient.setEmail(patientDto.getEmail());
         patient.setMobileNumber(patientDto.getMobileNumber());
@@ -32,15 +40,26 @@ public class PatientMapper {
         patient.setBirthDate(patientDto.getBirthDate());
         patient.setHeight(patientDto.getHeight());
         patient.setWeight(patientDto.getWeight());
-        // Calcule o IMC automaticamente ao mapear para o paciente
+
+        if (patientDto.getConsultationHistory() != null) {
+            patient.setConsultationHistory(
+                    patientDto.getConsultationHistory().stream()
+                            .map(dto -> ConsultationHistoryMapper.mapToConsultationHistory(dto, new ConsultationHistory()))
+                            .collect(Collectors.toList())
+            );
+        } else {
+            patient.setConsultationHistory(new ArrayList<>());
+        }
+
         patient.setImc(calculateImc(patientDto.getWeight(), patientDto.getHeight()));
         return patient;
     }
 
     private static Double calculateImc(Double weight, Double height) {
         if (weight == null || height == null || height == 0) {
-            return 0.0;
+            return null;
         }
         return weight / (height * height);
     }
 }
+

@@ -1,5 +1,6 @@
 package com.ygornacif.patient_api.controller;
 
+import com.ygornacif.patient_api.constants.ApiConstants;
 import com.ygornacif.patient_api.constants.PatientConstants;
 import com.ygornacif.patient_api.dto.PatientDto;
 import com.ygornacif.patient_api.dto.ResponseDto;
@@ -24,7 +25,7 @@ public class PatientController {
     public ResponseEntity<ResponseDto> createPatient(@Validated @RequestBody PatientDto patientDto) {
         patientService.createPatient(patientDto);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(new ResponseDto(PatientConstants.STATUS_201, PatientConstants.MESSAGE_201));
+                .body(new ResponseDto(ApiConstants.STATUS_201, PatientConstants.MESSAGE_201));
     }
     
     
@@ -41,13 +42,13 @@ public class PatientController {
             @PathVariable Long id) {
         patientService.updatePatient(patientDto);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseDto(PatientConstants.STATUS_200, PatientConstants.MESSAGE_200));
+                .body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
     }
 
     @DeleteMapping("/delete/{id}")
     public ResponseEntity<ResponseDto> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
         return ResponseEntity.status(HttpStatus.OK)
-                .body(new ResponseDto(PatientConstants.STATUS_200, "Patient deleted successfully."));
+                .body(new ResponseDto(ApiConstants.STATUS_200, "Patient deleted successfully."));
     }
 }

@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS `consultation_history` (
                                                       `patient_id` INT NOT NULL,
                                                       `consultation_date` DATETIME NOT NULL,
                                                       `notes` TEXT,
+                                                      `next_consultation_date` DATETIME,
                                                       FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
     );
 

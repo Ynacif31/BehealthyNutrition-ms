@@ -4,6 +4,9 @@ import com.ygornacif.patient_api.dto.ConsultationHistoryDto;
 import com.ygornacif.patient_api.entities.ConsultationHistory;
 import com.ygornacif.patient_api.entities.Patient;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+
 
 public class ConsultationHistoryMapper {
 
@@ -15,6 +18,8 @@ public class ConsultationHistoryMapper {
         consultationHistoryDto.setId(consultationHistory.getId()); // Mapeando o campo id
         consultationHistoryDto.setPatientId(consultationHistory.getPatient().getPatientId());
         consultationHistoryDto.setNotes(consultationHistory.getNotes());
+        consultationHistoryDto.setConsultationDate(consultationHistory.getConsultationDate());
+        consultationHistoryDto.setNextConsultationDate(consultationHistory.getNextConsultationDate().atStartOfDay());
 
         return consultationHistoryDto;
     }
@@ -27,6 +32,14 @@ public class ConsultationHistoryMapper {
         patient.setPatientId(consultationHistoryDto.getPatientId());
         consultationHistory.setPatient(patient);
         consultationHistory.setNotes(consultationHistoryDto.getNotes());
+        consultationHistory.setConsultationDate(consultationHistoryDto.getConsultationDate());
+
+        if (consultationHistoryDto.getConsultationDate() != null) {
+            LocalDate consultationDate = consultationHistoryDto.getConsultationDate().toInstant()
+                    .atZone(ZoneId.systemDefault()).toLocalDate();
+            consultationHistory.setNextConsultationDate(consultationDate.plusDays(90));
+        }
+
         return consultationHistory;
     }
 }

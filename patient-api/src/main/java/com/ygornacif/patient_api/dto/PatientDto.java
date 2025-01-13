@@ -5,6 +5,7 @@ import jakarta.validation.constraints.*;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 @Data
 public class PatientDto {
@@ -32,4 +33,6 @@ public class PatientDto {
     private Double imc;
 
     private Gender gender;
+
+    List<ConsultationHistoryDto> consultationHistory;
 }
