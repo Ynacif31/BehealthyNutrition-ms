@@ -6,6 +6,8 @@ import lombok.Data;
 @Data
 public class DietPlanDto {
 
+    private Long patientId;
+
     private Patient patient;
     private String planDetails;
 }

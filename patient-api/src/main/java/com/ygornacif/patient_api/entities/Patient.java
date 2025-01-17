@@ -4,13 +4,13 @@ import com.ygornacif.patient_api.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 @Entity
 @Getter
 @Setter
 @ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class Patient {
@@ -38,6 +38,9 @@ public class Patient {
     @Enumerated(EnumType.STRING)
     private Gender gender;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<ConsultationHistory> consultationHistory;
+
+    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
+    private List<DietPlan> dietPlan = new ArrayList<>();
 }

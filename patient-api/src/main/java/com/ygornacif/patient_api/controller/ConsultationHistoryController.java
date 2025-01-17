@@ -2,7 +2,6 @@ package com.ygornacif.patient_api.controller;
 
 import com.ygornacif.patient_api.constants.ApiConstants;
 import com.ygornacif.patient_api.constants.ConsultationHistoryConstants;
-import com.ygornacif.patient_api.constants.PatientConstants;
 import com.ygornacif.patient_api.dto.ConsultationHistoryDto;
 import com.ygornacif.patient_api.dto.ResponseDto;
 import com.ygornacif.patient_api.service.IConsultationHistoryService;
@@ -35,4 +34,11 @@ public class ConsultationHistoryController {
         List<ConsultationHistoryDto> consultationHistoryList = consultationHistoryService.fetchConsultationHistoryByPatientId(patientId);
         return ResponseEntity.status(HttpStatus.OK).body(consultationHistoryList);
     }
+
+    @PutMapping("/update-history")
+    public ResponseEntity<ResponseDto> updateConsultationHistory(@Validated @RequestBody ConsultationHistoryDto consultationHistoryDto, Long id){
+        consultationHistoryService.updateConsultationHistory(consultationHistoryDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
+    }
+
 }

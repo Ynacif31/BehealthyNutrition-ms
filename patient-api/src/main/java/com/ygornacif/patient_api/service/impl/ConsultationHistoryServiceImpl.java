@@ -35,4 +35,19 @@ public class ConsultationHistoryServiceImpl implements IConsultationHistoryServi
         ConsultationHistory consultationHistory = ConsultationHistoryMapper.mapToConsultationHistory(consultationHistoryDto, new ConsultationHistory());
         consultationHistoryRepository.save(consultationHistory);
     }
+
+    @Override
+    public boolean updateConsultationHistory(ConsultationHistoryDto consultationHistoryDto) {
+        ConsultationHistory consultationHistory = consultationHistoryRepository.findById(consultationHistoryDto.getId())
+                .orElseThrow(() -> new ResourceNotFoundException("Consultation History", "consultationHistoryId", String.valueOf(consultationHistoryDto.getId())));
+
+        ConsultationHistory updatedConsultationHistory = ConsultationHistoryMapper.mapToConsultationHistory(consultationHistoryDto, consultationHistory);
+        consultationHistoryRepository.save(updatedConsultationHistory);
+        return true;
+    }
+
+    @Override
+    public void deleteConsultationHistory(Long consultationHistoryId) {
+
+    }
 }

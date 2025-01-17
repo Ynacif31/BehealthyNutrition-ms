@@ -14,7 +14,7 @@ public class ConsultationHistoryMapper {
         if (consultationHistory == null) {
             return null;
         }
-        ConsultationHistoryDto consultationHistoryDto = new ConsultationHistoryDto();
+        ConsultationHistoryDto consultationHistoryDto = new ConsultationHistoryDto();// Mapeando o campo id
         consultationHistoryDto.setId(consultationHistory.getId()); // Mapeando o campo id
         consultationHistoryDto.setPatientId(consultationHistory.getPatient().getPatientId());
         consultationHistoryDto.setNotes(consultationHistory.getNotes());
@@ -30,13 +30,13 @@ public class ConsultationHistoryMapper {
 
         Patient patient = new Patient();
         patient.setPatientId(consultationHistoryDto.getPatientId());
+        consultationHistory.setId(consultationHistoryDto.getId());
         consultationHistory.setPatient(patient);
         consultationHistory.setNotes(consultationHistoryDto.getNotes());
         consultationHistory.setConsultationDate(consultationHistoryDto.getConsultationDate());
 
         if (consultationHistoryDto.getConsultationDate() != null) {
-            LocalDate consultationDate = consultationHistoryDto.getConsultationDate().toInstant()
-                    .atZone(ZoneId.systemDefault()).toLocalDate();
+            LocalDate consultationDate = consultationHistoryDto.getConsultationDate();
             consultationHistory.setNextConsultationDate(consultationDate.plusDays(90));
         }
 

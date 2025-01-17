@@ -1,18 +1,15 @@
 package com.ygornacif.patient_api.entities;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Getter
 @Setter
+@ToString
+@EqualsAndHashCode
 @AllArgsConstructor
 @NoArgsConstructor
 public class ConsultationHistory {
@@ -25,7 +22,7 @@ public class ConsultationHistory {
     @JoinColumn(name = "patient_id", nullable = false)
     Patient patient;
 
-    private Date consultationDate;
+    private LocalDate consultationDate;
     private String notes;
 
     private LocalDate nextConsultationDate;
