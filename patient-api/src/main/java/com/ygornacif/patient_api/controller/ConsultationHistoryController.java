@@ -41,4 +41,9 @@ public class ConsultationHistoryController {
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
     }
 
+    @DeleteMapping("/delete-history/{id}")
+    public ResponseEntity<ResponseDto> deleteConsultationHistory(@PathVariable Long id){
+        consultationHistoryService.deleteConsultationHistory(id);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
+    }
 }

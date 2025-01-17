@@ -17,18 +17,3 @@ CREATE TABLE IF NOT EXISTS `consultation_history` (
                                                       `next_consultation_date` DATETIME,
                                                       FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
     );
-
-CREATE TABLE IF NOT EXISTS `progress` (
-                                          `id` INT AUTO_INCREMENT PRIMARY KEY,
-                                          `patient_id` INT NOT NULL,
-                                          `progress_date` DATETIME NOT NULL,
-                                          `details` TEXT,
-                                          FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
-    );
-
-CREATE TABLE IF NOT EXISTS `diet_plan` (
-                                           `id` INT AUTO_INCREMENT PRIMARY KEY,
-                                           `patient_id` INT NOT NULL,
-                                           `plan_details` TEXT,
-                                           FOREIGN KEY (`patient_id`) REFERENCES `patient`(`patient_id`)
-    );

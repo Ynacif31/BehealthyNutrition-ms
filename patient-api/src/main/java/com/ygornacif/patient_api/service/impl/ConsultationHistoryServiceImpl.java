@@ -2,6 +2,7 @@ package com.ygornacif.patient_api.service.impl;
 
 import com.ygornacif.patient_api.dto.ConsultationHistoryDto;
 import com.ygornacif.patient_api.entities.ConsultationHistory;
+import com.ygornacif.patient_api.exceptions.ConsultationHistoryNotFoundException;
 import com.ygornacif.patient_api.exceptions.ResourceNotFoundException;
 import com.ygornacif.patient_api.mapper.ConsultationHistoryMapper;
 import com.ygornacif.patient_api.repositories.ConsultationHistoryRepository;
@@ -47,7 +48,13 @@ public class ConsultationHistoryServiceImpl implements IConsultationHistoryServi
     }
 
     @Override
-    public void deleteConsultationHistory(Long consultationHistoryId) {
+    public boolean deleteConsultationHistory(Long consultationHistoryId) {
+        ConsultationHistory consultationHistory = consultationHistoryRepository.
+                findById(consultationHistoryId)
+                .orElseThrow(
+                        () -> new ConsultationHistoryNotFoundException("History with id" + consultationHistoryId + "not found"));
 
+        consultationHistoryRepository.delete(consultationHistory);
+        return true;
     }
 }

@@ -41,6 +41,4 @@ public class Patient {
     @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
     private List<ConsultationHistory> consultationHistory;
 
-    @OneToMany(mappedBy = "patient", cascade = CascadeType.ALL)
-    private List<DietPlan> dietPlan = new ArrayList<>();
 }

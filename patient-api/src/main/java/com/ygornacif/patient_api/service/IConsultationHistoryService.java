@@ -17,5 +17,5 @@ public interface IConsultationHistoryService {
      */
     boolean updateConsultationHistory(ConsultationHistoryDto consultationHistoryDto);
 
-    void deleteConsultationHistory(Long consultationHistoryId);
+    boolean deleteConsultationHistory(Long consultationHistoryId);
 }
