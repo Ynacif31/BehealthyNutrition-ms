@@ -5,7 +5,7 @@ import com.ygornacif.patient_api.entities.ConsultationHistory;
 import com.ygornacif.patient_api.entities.Patient;
 
 import java.time.LocalDate;
-import java.time.ZoneId;
+
 
 
 public class ConsultationHistoryMapper {

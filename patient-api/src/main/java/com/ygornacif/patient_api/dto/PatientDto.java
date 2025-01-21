@@ -4,6 +4,7 @@ import com.ygornacif.patient_api.enums.Gender;
 import jakarta.validation.constraints.*;
 import lombok.Data;
 
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class PatientDto {
     private String mobileNumber;
 
     @NotNull(message = "Birth date cannot be null")
-    private Date birthDate;
+    private LocalDate birthDate;
 
     @NotNull(message = "Weight cannot be null")
     private Double weight;

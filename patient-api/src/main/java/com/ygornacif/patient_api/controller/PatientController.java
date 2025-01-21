@@ -14,14 +14,14 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping(path = "/api", produces = {MediaType.APPLICATION_JSON_VALUE})
+@RequestMapping(path = "/api/patients", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
 @Validated
 public class PatientController {
 
     private final IPatientService patientService;
 
-    @PostMapping("/create")
+    @PostMapping
     public ResponseEntity<ResponseDto> createPatient(@Validated @RequestBody PatientDto patientDto) {
         patientService.createPatient(patientDto);
         return ResponseEntity.status(HttpStatus.CREATED)
@@ -29,14 +29,14 @@ public class PatientController {
     }
     
     
-    @GetMapping("/fetch")
+    @GetMapping
     public ResponseEntity<PatientDto> fetchPatient(@RequestParam @Pattern(regexp="(^$|[0-9]{11})",message = "Mobile number must be 11 digits")
                                                     String mobileNumber) {
         PatientDto patientDto = patientService.fetchPatient(mobileNumber);
         return ResponseEntity.status(HttpStatus.OK).body(patientDto);
     }
 
-    @PutMapping("/update/{id}")
+    @PutMapping("/{id}")
     public ResponseEntity<ResponseDto> updatePatient(
             @Validated @RequestBody PatientDto patientDto,
             @PathVariable Long id) {
@@ -45,7 +45,7 @@ public class PatientController {
                 .body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
     }
 
-    @DeleteMapping("/delete/{id}")
+    @DeleteMapping("/{id}")
     public ResponseEntity<ResponseDto> deletePatient(@PathVariable Long id) {
         patientService.deletePatient(id);
         return ResponseEntity.status(HttpStatus.OK)

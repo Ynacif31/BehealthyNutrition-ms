@@ -4,6 +4,7 @@ import com.ygornacif.patient_api.enums.Gender;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.time.LocalDate;
 import java.util.*;
 
 @Entity
@@ -27,7 +28,7 @@ public class Patient {
     @Column(name="mobile_number")
     private String mobileNumber;
 
-    private Date birthDate;
+    private LocalDate birthDate;
 
     private Double weight;
 
