@@ -11,4 +11,25 @@ public interface IAppointmentService {
      * @return AppointmentDto - DTO do appointment criado, incluindo o ID gerado.
      */
     void createAppointment(AppointmentDto appointmentDto);
+
+    /**
+     *
+     * @param patientId - Input Mobile Number
+     * @return Accounts Details based on a given mobileNumber
+     */
+    AppointmentDto fetchAppointment(String patientId);
+
+    /**
+     * @param appointmentDto - AppointmentDto Object
+     * @return boolean indicating if the update of appointment details is successful or not
+     */
+    boolean updateAppointment(AppointmentDto appointmentDto);
+
+    /**
+     * Atualiza os dados de um paciente.
+     *
+     * @param id - id do paciente a ser excluido.
+     * @return boolean indicando se a deleção foi bem-sucedida ou não.
+     */
+    boolean deleteAppointment(Long id);
 }
