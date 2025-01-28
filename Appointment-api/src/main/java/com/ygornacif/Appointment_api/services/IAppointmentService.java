@@ -2,6 +2,8 @@ package com.ygornacif.Appointment_api.services;
 
 import com.ygornacif.Appointment_api.dto.AppointmentDto;
 
+import java.time.LocalDateTime;
+
 public interface IAppointmentService {
 
     /**
@@ -32,4 +34,6 @@ public interface IAppointmentService {
      * @return boolean indicando se a deleção foi bem-sucedida ou não.
      */
     boolean deleteAppointment(Long id);
+
+    boolean rescheduleAppointment(Long id, LocalDateTime newDate);
 }

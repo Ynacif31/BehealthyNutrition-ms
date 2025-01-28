@@ -6,10 +6,10 @@ import com.ygornacif.Appointment_api.mappers.AppointmentMapper;
 import com.ygornacif.Appointment_api.model.Appointment;
 import com.ygornacif.Appointment_api.repository.AppointmentRepository;
 import com.ygornacif.Appointment_api.services.IAppointmentService;
-import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RequestBody;
+
+import java.time.LocalDateTime;
 
 @AllArgsConstructor
 @Service
@@ -53,4 +53,14 @@ public class AppointmentServiceImpl implements IAppointmentService {
         appointmentRepository.delete(appointment);
         return true;
     }
+
+    @Override
+    public boolean rescheduleAppointment(Long id, LocalDateTime newDate) {
+        Appointment appointment = appointmentRepository.findById(id)
+                .orElseThrow(() -> new AppointmentNotFoundException("Appointment with id " + id + " not found."));
+        appointment.setDateTime(newDate);
+        appointmentRepository.save(appointment);
+        return true;
+    }
+
 }

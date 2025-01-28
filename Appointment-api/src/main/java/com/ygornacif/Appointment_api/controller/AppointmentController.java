@@ -3,6 +3,7 @@ package com.ygornacif.Appointment_api.controller;
 import com.ygornacif.Appointment_api.constants.ApiConstants;
 import com.ygornacif.Appointment_api.constants.AppointmentConstants;
 import com.ygornacif.Appointment_api.dto.AppointmentDto;
+import com.ygornacif.Appointment_api.dto.RescheduleRequestDto;
 import com.ygornacif.Appointment_api.dto.ResponseDto;
 import com.ygornacif.Appointment_api.model.Appointment;
 import com.ygornacif.Appointment_api.services.IAppointmentService;
@@ -12,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDateTime;
 
 @RestController
 @RequestMapping(path = "/api/appointments", produces = {MediaType.APPLICATION_JSON_VALUE})
@@ -48,8 +51,18 @@ public class AppointmentController {
     }
 
     @DeleteMapping(path = "/{id}")
-    public ResponseEntity<ResponseDto> deleteAppointment(@PathVariable Long id){
+    public ResponseEntity<ResponseDto> cancelAppointment(@PathVariable Long id){
         appointmentService.deleteAppointment(id);
         return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
+    }
+
+    @PutMapping(path = "/{id}/reschedule")
+    public ResponseEntity<ResponseDto> rescheduleAppointment(
+            @PathVariable Long id,
+            @RequestBody RescheduleRequestDto request) {
+        appointmentService.rescheduleAppointment(id, request.getNewDate());
+        return ResponseEntity.status(HttpStatus.OK).body(
+                new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED)
+        );
     }
 }
