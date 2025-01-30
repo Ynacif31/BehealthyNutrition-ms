@@ -5,6 +5,7 @@ import com.ygornacif.patient_api.constants.PatientConstants;
 import com.ygornacif.patient_api.dto.PatientDto;
 import com.ygornacif.patient_api.dto.ResponseDto;
 import com.ygornacif.patient_api.service.IPatientService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Pattern;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+@Tag(
+        name = "CRUD REST APIs for patients in BeHealthyNutrition",
+        description = "CRUD REST APIs in BeHealthyNutrition to CREATE, UPDATE, FETCH AND DELETE patient details"
+)
 @RestController
 @RequestMapping(path = "/api/patients", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
