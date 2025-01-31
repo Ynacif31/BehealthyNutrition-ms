@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -22,8 +23,8 @@ public class ConsultationHistory {
     @JoinColumn(name = "patient_id", nullable = false)
     Patient patient;
 
-    private LocalDate consultationDate;
+    private LocalDateTime consultationDate;
     private String notes;
 
-    private LocalDate nextConsultationDate;
+    private LocalDateTime nextConsultationDate;
 }

@@ -39,12 +39,14 @@ public class ConsultationHistoryServiceImpl implements IConsultationHistoryServi
 
     @Override
     public boolean updateConsultationHistory(ConsultationHistoryDto consultationHistoryDto) {
-        ConsultationHistory consultationHistory = consultationHistoryRepository.findById(consultationHistoryDto.getId())
-                .orElseThrow(() -> new ResourceNotFoundException("Consultation History", "consultationHistoryId", String.valueOf(consultationHistoryDto.getId())));
-
-        ConsultationHistory updatedConsultationHistory = ConsultationHistoryMapper.mapToConsultationHistory(consultationHistoryDto, consultationHistory);
-        consultationHistoryRepository.save(updatedConsultationHistory);
-        return true;
+        try {
+            consultationHistoryRepository.findById(consultationHistoryDto.getId());
+            ConsultationHistory updatedConsultationHistory = ConsultationHistoryMapper.mapToConsultationHistory(consultationHistoryDto, new ConsultationHistory());
+            consultationHistoryRepository.save(updatedConsultationHistory);
+            return true;
+        } catch (ConsultationHistoryNotFoundException e) {
+            throw new ConsultationHistoryNotFoundException("Consultation History with id " + consultationHistoryDto.getId() + " not found");
+        }
     }
 
     @Override

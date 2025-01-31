@@ -31,13 +31,13 @@ public class PatientDto {
     @Pattern(regexp = "^[0-9]{11}$", message = "Mobile number must be 11 digits")
 
     @Schema(
-            description = "patient mobile number", example = "21987161423"
+            description = "patient mobile number", example = "21980161321"
     )
     private String mobileNumber;
 
     @NotNull(message = "Birth date cannot be null")
     @Schema(
-            description = "patient Birthdate", example = "31/03/2000"
+            description = "patient Birthdate", example = "2000-03-31"
     )
     private LocalDate birthDate;
 

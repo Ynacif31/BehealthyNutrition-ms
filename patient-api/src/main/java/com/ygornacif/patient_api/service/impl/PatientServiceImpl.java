@@ -34,7 +34,7 @@ public class PatientServiceImpl implements IPatientService {
     public PatientDto fetchPatient(String mobileNumber) {
         // Busca o paciente pelo número de telefone
         Patient patient = (Patient) patientRepository.findByMobileNumber(mobileNumber)
-                .orElseThrow(() -> new ResourceNotFoundException("Customer", "mobileNumber", mobileNumber));
+                .orElseThrow(() -> new ResourceNotFoundException("Patient", "mobileNumber", mobileNumber));
 
         // Mapeia o paciente para um DTO
         PatientDto patientDto = PatientMapper.mapToPatientDto(patient, new PatientDto());

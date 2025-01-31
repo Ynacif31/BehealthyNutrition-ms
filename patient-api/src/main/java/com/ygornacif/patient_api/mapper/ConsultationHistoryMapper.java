@@ -5,7 +5,7 @@ import com.ygornacif.patient_api.entities.ConsultationHistory;
 import com.ygornacif.patient_api.entities.Patient;
 
 import java.time.LocalDate;
-
+import java.time.LocalDateTime;
 
 
 public class ConsultationHistoryMapper {
@@ -19,7 +19,7 @@ public class ConsultationHistoryMapper {
         consultationHistoryDto.setPatientId(consultationHistory.getPatient().getPatientId());
         consultationHistoryDto.setNotes(consultationHistory.getNotes());
         consultationHistoryDto.setConsultationDate(consultationHistory.getConsultationDate());
-        consultationHistoryDto.setNextConsultationDate(consultationHistory.getNextConsultationDate().atStartOfDay());
+        consultationHistoryDto.setNextConsultationDate(consultationHistory.getNextConsultationDate());
 
         return consultationHistoryDto;
     }
@@ -36,7 +36,7 @@ public class ConsultationHistoryMapper {
         consultationHistory.setConsultationDate(consultationHistoryDto.getConsultationDate());
 
         if (consultationHistoryDto.getConsultationDate() != null) {
-            LocalDate consultationDate = consultationHistoryDto.getConsultationDate();
+            LocalDateTime consultationDate = consultationHistoryDto.getConsultationDate();
             consultationHistory.setNextConsultationDate(consultationDate.plusDays(90));
         }
 
