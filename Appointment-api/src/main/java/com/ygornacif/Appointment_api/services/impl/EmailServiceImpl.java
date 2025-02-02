@@ -40,20 +40,6 @@ public class EmailServiceImpl implements IEmailService {
 
     private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
 
-    @Override
-    public void sendEmail(EmailDto emailDto) {
-        try {
-            SimpleMailMessage message = new SimpleMailMessage();
-            message.setFrom(emailFrom);
-            message.setTo(emailDto.getTo());
-            message.setSubject(emailDto.getSubject());
-            message.setText(emailDto.getBody());
-            emailSender.send(message);
-        } catch (MailException e) {
-            throw new EmailException("Failed to send email");
-        }
-    }
-
     public void sendAppointmentEmail(String to, LocalDateTime appointmentDate) {
         try {
             String formattedDate = appointmentDate.format(formatter);
