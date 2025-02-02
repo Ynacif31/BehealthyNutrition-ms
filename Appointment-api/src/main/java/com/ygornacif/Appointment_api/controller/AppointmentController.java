@@ -7,6 +7,7 @@ import com.ygornacif.Appointment_api.dto.RescheduleRequestDto;
 import com.ygornacif.Appointment_api.dto.ResponseDto;
 import com.ygornacif.Appointment_api.model.Appointment;
 import com.ygornacif.Appointment_api.services.IAppointmentService;
+import com.ygornacif.Appointment_api.services.IEmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;

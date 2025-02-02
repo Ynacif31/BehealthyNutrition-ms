@@ -3,7 +3,6 @@ package com.ygornacif.Appointment_api.controller;
 import com.ygornacif.Appointment_api.dto.EmailDto;
 import com.ygornacif.Appointment_api.services.IEmailService;
 import jakarta.validation.Valid;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

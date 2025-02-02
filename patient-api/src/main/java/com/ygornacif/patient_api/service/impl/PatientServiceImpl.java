@@ -21,22 +21,18 @@ public class PatientServiceImpl implements IPatientService {
 
     @Override
     public void createPatient(PatientDto patientDto) {
-        Optional<Patient> optionalPatient = patientRepository.findByEmail(patientDto.getEmail());
-        if (optionalPatient.isPresent()) {
-            throw new PatientAlreadyExistsException("Patient with email " + patientDto.getEmail() + " already exists.");
-        }
+        validatePatientExistence(patientDto);
 
         Patient patient = PatientMapper.mapToPatient(patientDto, new Patient());
         patientRepository.save(patient);
     }
 
+
     @Override
     public PatientDto fetchPatient(String mobileNumber) {
-        // Busca o paciente pelo número de telefone
         Patient patient = (Patient) patientRepository.findByMobileNumber(mobileNumber)
                 .orElseThrow(() -> new ResourceNotFoundException("Patient", "mobileNumber", mobileNumber));
 
-        // Mapeia o paciente para um DTO
         PatientDto patientDto = PatientMapper.mapToPatientDto(patient, new PatientDto());
         if (patientDto == null) {
             throw new IllegalStateException("Failed to map Patient to PatientDto");
@@ -63,5 +59,24 @@ public class PatientServiceImpl implements IPatientService {
         );
         patientRepository.delete(patient);
         return true;
+    }
+
+    @Override
+    public PatientDto getPatientById(Long id) {
+        Patient patient = patientRepository.findById(id).orElseThrow(
+                () -> new PatientNotFoundException("Patient with id " + id + " not found.")
+        );
+        return PatientMapper.mapToPatientDto(patient, new PatientDto());
+
+    }
+
+    private void validatePatientExistence(PatientDto patientDto) {
+        Optional<Patient> patient = patientRepository.findByEmail(patientDto.getEmail());
+        if (patient.isPresent()) {
+            throw new PatientAlreadyExistsException("Patient with email " + patientDto.getEmail() + " already exists.");
+        }
+        if (patientRepository.findByMobileNumber(patientDto.getMobileNumber()).isPresent()) {
+            throw new PatientAlreadyExistsException("Patient with mobile number " + patientDto.getMobileNumber() + " already exists.");
+        }
     }
 }

@@ -31,4 +31,12 @@ public interface IPatientService {
      * @return boolean indicando se a deleção foi bem-sucedida ou não.
      */
     boolean deletePatient(Long id);
+
+    /**
+     * Busca um paciente pelo ID.
+     *
+     * @param id - ID do paciente a ser buscado.
+     * @return PatientDto contendo os dados do paciente.
+     */
+    PatientDto getPatientById(Long id);
 }

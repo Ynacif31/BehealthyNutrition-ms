@@ -149,4 +149,22 @@ public class PatientController {
                     .body(new ResponseDto(ApiConstants.STATUS_417, ApiConstants.MESSAGE_417_DELETE_FAILED));
         }
     }
+
+    @Operation(
+            summary = "Fetch Patient by ID REST API",
+            description = "REST API to fetch a Patient by their ID"
+    )
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", description = "HTTP Status OK"),
+            @ApiResponse(
+                    responseCode = "404",
+                    description = "Patient not found",
+                    content = @Content(schema = @Schema(implementation = ErrorResponseDto.class))
+            )
+    })
+    @GetMapping("/{id}")
+    public ResponseEntity<PatientDto> getPatientById(@PathVariable("id") Long id) {
+        PatientDto patientDto = patientService.getPatientById(id);
+        return ResponseEntity.ok(patientDto);
+    }
 }

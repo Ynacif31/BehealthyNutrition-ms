@@ -9,6 +9,27 @@ import org.springframework.mail.MailException;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.mail.MailException;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+
+@Service
 public class EmailServiceImpl implements IEmailService {
 
     @Value("${spring.mail.username}")
@@ -17,6 +38,9 @@ public class EmailServiceImpl implements IEmailService {
     @Autowired
     private JavaMailSender emailSender;
 
+    private final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+
+    @Override
     public void sendEmail(EmailDto emailDto) {
         try {
             SimpleMailMessage message = new SimpleMailMessage();
@@ -27,6 +51,22 @@ public class EmailServiceImpl implements IEmailService {
             emailSender.send(message);
         } catch (MailException e) {
             throw new EmailException("Failed to send email");
+        }
+    }
+
+    public void sendAppointmentEmail(String to, LocalDateTime appointmentDate) {
+        try {
+            String formattedDate = appointmentDate.format(formatter);
+
+            SimpleMailMessage message = new SimpleMailMessage();
+            message.setFrom(emailFrom);
+            message.setTo(to);
+            message.setSubject("Confirmação da sua consulta");
+            message.setText("Sua consulta está agendada para: " + formattedDate);
+
+            emailSender.send(message);
+        } catch (MailException e) {
+            throw new EmailException("Falha ao enviar e-mail");
         }
     }
 }

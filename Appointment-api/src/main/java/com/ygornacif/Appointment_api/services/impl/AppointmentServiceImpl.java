@@ -1,11 +1,14 @@
 package com.ygornacif.Appointment_api.services.impl;
 
+import com.ygornacif.Appointment_api.config.PatientFeignClient;
 import com.ygornacif.Appointment_api.dto.AppointmentDto;
+import com.ygornacif.Appointment_api.dto.PatientDto;
 import com.ygornacif.Appointment_api.exceptions.AppointmentNotFoundException;
 import com.ygornacif.Appointment_api.mappers.AppointmentMapper;
 import com.ygornacif.Appointment_api.model.Appointment;
 import com.ygornacif.Appointment_api.repository.AppointmentRepository;
 import com.ygornacif.Appointment_api.services.IAppointmentService;
+import com.ygornacif.Appointment_api.services.IEmailService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -16,11 +19,18 @@ import java.time.LocalDateTime;
 public class AppointmentServiceImpl implements IAppointmentService {
 
     private final AppointmentRepository appointmentRepository;
+    private final IEmailService emailService;
+    private final PatientFeignClient patientFeignClient;
 
     @Override
     public void createAppointment(AppointmentDto appointmentDto) {
         Appointment appointment = AppointmentMapper.mapToAppointmentFromDto(appointmentDto, new Appointment());
         appointmentRepository.save(appointment);
+
+        PatientDto patient = patientFeignClient.getPatientById(appointment.getPatientId());
+
+        emailService.sendAppointmentEmail(patient.getEmail(), appointment.getDateTime());
+
     }
 
     @Override
