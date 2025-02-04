@@ -12,6 +12,8 @@
     <option name="originalFiles">
       <list>
         <option value="$PROJECT_DIR$/patient-api/pom.xml" />
+        <option value="$PROJECT_DIR$/user-api/pom.xml" />
+        <option value="$PROJECT_DIR$/Appointment-api/pom.xml" />
       </list>
     </option>
   </component>
