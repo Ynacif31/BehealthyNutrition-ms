@@ -1,6 +1,5 @@
 package com.ygornacif.user_api.dto;
 
-import com.ygornacif.user_api.entities.Role;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 
@@ -13,7 +12,6 @@ public class UserDto {
 
     private Long id;
 
-    @NotBlank(message = "Campo obrigatório")
     private String name;
 
     @NotBlank(message = "Campo obrigatório")
@@ -21,6 +19,8 @@ public class UserDto {
 
     @NotBlank(message = "Campo obrigatório")
     private String phone;
+
+    private String password;
 
     private Set<RoleDto> roles = new HashSet<>();
 }
