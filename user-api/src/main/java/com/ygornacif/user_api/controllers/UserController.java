@@ -23,6 +23,6 @@ public class UserController {
     @PostMapping
     public ResponseEntity<ResponseDto> createUser(@RequestBody UserDto userDto) {
         userService.createUser(userDto);
-        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(ApiConstants.MESSAGE_201_CREATED, UserConstants.MESSAGE_201));
+        return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(ApiConstants.STATUS_201, UserConstants.MESSAGE_201));
     }
 }

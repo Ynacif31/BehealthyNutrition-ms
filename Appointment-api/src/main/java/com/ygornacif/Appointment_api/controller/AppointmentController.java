@@ -3,11 +3,16 @@ package com.ygornacif.Appointment_api.controller;
 import com.ygornacif.Appointment_api.constants.ApiConstants;
 import com.ygornacif.Appointment_api.constants.AppointmentConstants;
 import com.ygornacif.Appointment_api.dto.AppointmentDto;
+import com.ygornacif.Appointment_api.dto.ErrorResponseDto;
 import com.ygornacif.Appointment_api.dto.RescheduleRequestDto;
 import com.ygornacif.Appointment_api.dto.ResponseDto;
-import com.ygornacif.Appointment_api.model.Appointment;
 import com.ygornacif.Appointment_api.services.IAppointmentService;
-import com.ygornacif.Appointment_api.services.IEmailService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -15,8 +20,10 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
-
+@Tag(
+        name = "CRUD REST APIs for appointments in BeHealthyNutrition",
+        description = "CRUD REST APIs in BeHealthyNutrition to CREATE, UPDATE, FETCH AND DELETE appointments details"
+)
 @RestController
 @RequestMapping(path = "/api/appointments", produces = {MediaType.APPLICATION_JSON_VALUE})
 @AllArgsConstructor
@@ -25,6 +32,24 @@ public class AppointmentController {
 
     private final IAppointmentService appointmentService;
 
+    @Operation(
+            summary = "Create appointment REST API",
+            description = "REST API to create new Appointment inside BeHealthyNutrition"
+    )
+    @ApiResponses({
+            @ApiResponse(
+                    responseCode = "201",
+                    description = "HTTP Status CREATED"
+            ),
+            @ApiResponse(
+                    responseCode = "500",
+                    description = "HTTP Status Internal Server Error",
+                    content = @Content(
+                            schema = @Schema(implementation = ErrorResponseDto.class)
+                    )
+            )
+    }
+    )
     @PostMapping
     public ResponseEntity<ResponseDto> createAppointment(@Validated @RequestBody AppointmentDto appointmentDto){
         appointmentService.createAppointment(appointmentDto);
