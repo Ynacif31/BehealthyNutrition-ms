@@ -20,6 +20,12 @@ public class UserController {
         this.userService = userService;
     }
 
+    @GetMapping()
+    public ResponseEntity<UserDto> fetchUserByEmail(@RequestParam String email) {
+        UserDto userDto = userService.fetchUserByEmail(email);
+        return ResponseEntity.status(HttpStatus.OK).body(userDto);
+    }
+
     @PostMapping
     public ResponseEntity<ResponseDto> createUser(@RequestBody UserDto userDto) {
         userService.createUser(userDto);

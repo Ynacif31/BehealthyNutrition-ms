@@ -48,6 +48,28 @@ public class UserServiceImpl implements IUserService {
         userRepository.save(user);
     }
 
+    @Override
+    public UserDto fetchUserByEmail(String email) {
+        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserAlreadyExistsException("User with email " + email + " not found.")));
+        UserDto userDto = UserMapper.MapToDto(user.get(), new UserDto());
+        if (userDto == null) {
+            throw new IllegalStateException("Failed to map User to UserDto");
+        }
+        return userDto;
+    }
+
+    @Override
+    public boolean updateUser(UserDto userDto) {
+        return false;
+    }
+
+    @Override
+    public boolean deleteUser(String email) {
+        return false;
+    }
+
+
     private void validateUser(UserDto userDto) {
         Optional<User> user = userRepository.findByEmail(userDto.getEmail());
         if (user.isPresent()) {

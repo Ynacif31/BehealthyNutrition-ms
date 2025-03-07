@@ -20,5 +20,6 @@ CREATE TABLE IF NOT EXISTS tb_user_role (
     FOREIGN KEY (role_id) REFERENCES tb_role(id) ON DELETE CASCADE
     );
 
-INSERT INTO tb_role (id, authority) VALUES (1,'ROLE_NUTRICIONIST');
+INSERT INTO tb_role (id, authority) VALUES (1,'ROLE_NUTRITIONIST');
 INSERT INTO tb_role (id, authority) VALUES (2,'ROLE_ADMIN');
+INSERT INTO tb_role (id, authority) VALUES (3,'ROLE_PATIENT');

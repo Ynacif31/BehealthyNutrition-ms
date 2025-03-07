@@ -6,6 +6,7 @@ import com.ygornacif.user_api.entities.Role;
 import com.ygornacif.user_api.entities.User;
 
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 public class UserMapper {
