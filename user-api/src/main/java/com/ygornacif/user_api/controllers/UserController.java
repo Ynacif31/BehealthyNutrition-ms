@@ -31,4 +31,10 @@ public class UserController {
         userService.createUser(userDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(new ResponseDto(ApiConstants.STATUS_201, UserConstants.MESSAGE_201));
     }
+
+    @PutMapping("/{id}")
+    public ResponseEntity<ResponseDto> updateUser(@RequestBody UserDto userDto) {
+        userService.updateUser(userDto);
+        return ResponseEntity.status(HttpStatus.OK).body(new ResponseDto(ApiConstants.STATUS_200, ApiConstants.MESSAGE_200_PROCESSED));
+    }
 }

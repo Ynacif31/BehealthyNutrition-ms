@@ -3,6 +3,7 @@ package com.ygornacif.user_api.services.impl;
 import com.ygornacif.user_api.dto.UserDto;
 import com.ygornacif.user_api.entities.Role;
 import com.ygornacif.user_api.entities.User;
+import com.ygornacif.user_api.exceptions.ResourceNotFoundException;
 import com.ygornacif.user_api.exceptions.UserAlreadyExistsException;
 import com.ygornacif.user_api.mappers.UserMapper;
 import com.ygornacif.user_api.repositories.RoleRepository;
@@ -50,19 +51,27 @@ public class UserServiceImpl implements IUserService {
 
     @Override
     public UserDto fetchUserByEmail(String email) {
-        Optional<User> user = Optional.ofNullable(userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserAlreadyExistsException("User with email " + email + " not found.")));
-        UserDto userDto = UserMapper.MapToDto(user.get(), new UserDto());
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", email));
+        UserDto userDto = UserMapper.MapToDto(user, new UserDto());
+
         if (userDto == null) {
-            throw new IllegalStateException("Failed to map User to UserDto");
+            throw new IllegalStateException("Failed to map User to UserDto. Mapping returned null.");
         }
         return userDto;
     }
 
+
     @Override
     public boolean updateUser(UserDto userDto) {
-        return false;
+        User user = userRepository.findByEmail(userDto.getEmail())
+                .orElseThrow(() -> new ResourceNotFoundException("User", "email", userDto.getEmail()));
+
+        UserMapper.MapToEntity(userDto, user);
+        userRepository.save(user);
+        return true;
     }
+
 
     @Override
     public boolean deleteUser(String email) {
